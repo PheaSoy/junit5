@@ -1,0 +1,12 @@
+/target/*
+/target/
+.idea/*.*
+.idea/**/*.*
+target/**/*
+target/**/*.*
+/.idea
+/.project
+/.settings
+*.iml
+test-auto-build
+.DS_Store
