@@ -202,7 +202,7 @@ assertThrows is powerful for exception testing. it's also support java8 lambda e
 
 * Test repeated test method with @RepeatedTest
 ```
-   @Order(2)
+    @Order(2)
     @RepeatedTest(3) // Repeating the testing time.
     @DisplayName("Test search book should be ok.")
     public void testSearchBookAfterCreated() {
@@ -212,6 +212,18 @@ assertThrows is powerful for exception testing. it's also support java8 lambda e
     }
 ```
 
+* Test a method with assertTimeout
+````
+@Test
+public void testCreateTheBookWithTimeoutReturnOK(){
+    given(bookRepository.save(requestBook)).willReturn(resultBook);
+    assertTimeout(Duration.ofMillis(2),() -> bookService.createBook(requestBook));
+    //Asserts that execution of the supplied executable completes before the given timeout is exceeded.
+}
+````
+If the  execution of bookService.createBook(requestBook) bigger than given timeout 2 millisecond will return false.
+ 
+But if bookService.createBook(requestBook) execute less than 2 millisecond will return true.
 * Clear everything of the test with @AfterAll
 ```  
 @AfterAll// Running after each method execute.

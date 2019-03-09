@@ -12,6 +12,7 @@ import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.lang.reflect.Field;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -84,6 +85,13 @@ public class BookServiceTest {
         given(bookRepository.findBookById(bookIdGenerated)).willReturn(Optional.ofNullable(requestBook));
         Optional<Book> book = bookService.getBookById(bookIdGenerated);
         assertEquals(book.isPresent(),true);
+    }
+
+    @Test
+    public void testCreateTheBookWithTimeoutReturnOK(){
+        given(bookRepository.save(requestBook)).willReturn(resultBook);
+        assertTimeout(Duration.ofMillis(2),() -> bookService.createBook(requestBook));
+        //Asserts that execution of the supplied executable completes before the given timeout is exceeded.
     }
 
     @AfterAll// Running after each method execute.
