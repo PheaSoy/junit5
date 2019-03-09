@@ -34,6 +34,7 @@ public class BookService {
     Optional<Book> getBookById(String id) {
         return bookRepository.findBookById(id);
     }
+
     public void clearListBook(){
         bookRepository.clearAll();
     }
